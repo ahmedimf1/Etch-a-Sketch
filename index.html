@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .gridContainer{
+        display: grid;
+        display: grid;
+        /* This is the standardized property now, but has slightly less support */
+        /* gap: 1rem */
+        width: 50vw;
+        height: 50vw;
+        border-style: solid;
+        place-content: center;
+        border-color: black;
+        margin: auto;
+        
+
+    }
+    .gridDefault {
+      
+      height: auto;
+      width: auto;
+      padding: 1% ;
+      background-color:white;
+      border-color: whitesmoke;
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    /* div.gridDefault:hover {
+      
+      background-color: maroon;
+      color: maroon;
+ 
+    } */
+
+    .gridActive {
+      background-color: #e66465;
+    }
+
+
+    </style>
+    <button>Start / Reset</button>
+    <div class="w3-col s4">
+        <p><strong>Brush Color:</strong></p>
+        <label class="checkcontainer">
+            <span class="radiobtn"></span>
+            <input type="radio" checked="checked" id="blackRadio", name = "brushRadio">
+            Black
+        </label>
+
+        <label class="checkcontainer">
+            <input type="radio" id="randomRadio", name = "brushRadio">
+            Random
+            <span class="radiobtn"></span>
+        </label> 
+
+        <label class="checkcontainer">
+            <span class="radiobtn"></span>    
+            <input type="radio" id="customRadio", name = "brushRadio", value="#e66465">
+            <input type="color", id="customRadio", name="brushRadio", value="#e66465">
+            Class
+            
+
+        </label>
+          
+                
+        </div>
+      
+  <title>Etch-a-Sketch</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <div id= "gridContainer", class = gridContainer>
+
+
+  </div>
+  <script>
+    
+    // Your JavaScript goes here!
+    let container = document.getElementById("gridContainer")
+    let divArr = [];
+    let gridCount;
+    
+    button = document.querySelector("button");
+    button.addEventListener("click", ()=>{
+        container.innerHTML="";
+        // divArr.forEach((div)=>{
+        //     div.className = "gridDefault"
+        // })
+    gridCount = prompt("how many grid elements?", `${gridCount}`)
+
+    //sets container # of columns = gridCount - inline style
+    container.style=`grid-template-columns: repeat(${gridCount}, minmax(1px, 1fr)); 
+                        grid-template-rows: repeat(${gridCount}, minmax(1px, 1fr))`
+    for(let i=0; i<=(gridCount*gridCount)-1;i++){
+            var newDiv= document.createElement("div")
+            newDiv.className ="gridDefault";
+            newDiv.id = 'gridElement'+i
+            container.appendChild(newDiv);
+            divArr.push(newDiv);
+            }
+            
+            confirm("Choose brush color")
+    
+        
+        
+
+            let brushRadio = document.querySelectorAll("input[name=brushRadio]");
+            console.log(brushRadio)
+            brushRadio.forEach((checkbox)=>{
+                checkbox.addEventListener( 'change', function() {
+                    divArr.forEach((div)=>{
+                        div.addEventListener("mouseover", ()=>{
+                            div.className = "gridActive";
+                            if (checkbox.id == "randomRadio") {
+                                let red = Math.round(Math.random()*255)
+                                let green = Math.round(Math.random()*255)
+                                let blue = Math.round(Math.random()*255)
+                                var rgb= `rgb(${red}, ${green}, ${blue})`
+                                div.style= "background-color: "+rgb;
+                                return;
+                            } 
+                            else if (checkbox.id == "blackRadio") {
+                                div.style = "background-color: black";
+                                return;
+                            }
+                            else if (checkbox.id == "customRadio") {
+                                console.log(checkbox.value)
+                                div.style = `background-color: ${checkbox.value}`;
+                                return;
+                            }
+                }
+                );
+            })
+
+
+
+
+
+
+
+        })
+    })
+    })
+
+	
+  </script>
+</body>
+</html>
